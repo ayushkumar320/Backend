@@ -15,6 +15,21 @@ const port = 3000;
 //   res.send("notaprocoder");
 // });
 
+// Another way to get the routes done is as follows:
+/*
+app.route('/book')
+  .get(function (req, res) {
+    res.send('Get a random book')
+  })
+  .post(function (req, res) {
+    res.send('Add a book')
+  })
+  .put(function (req, res) {
+    res.send('Update the book')
+  });
+*/
+
+
 /* 
   app.use(express.json()); tells Express to automatically parse incoming JSON data from   the request body.
 
