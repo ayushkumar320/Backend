@@ -29,24 +29,24 @@ app.route('/book')
   });
 */
 
-
 /* 
-  app.use(express.json()); tells Express to automatically parse incoming JSON data from   the request body.
+  app.use(express.json()); tells Express to automatically parse incoming JSON data from the request body. It is a middleware
 
   Meaning:
   When a client (like Postman, frontend app, etc.) sends a POST, PUT, or PATCH request with a JSON body, Express normally doesn't understand it automatically.
-  express.json() is middleware that reads that raw JSON data and converts it into a JavaScript object you can easily access via req.body. */
-app.use(express.json());
+  express.json() is middleware that reads that raw JSON data and converts it into a JavaScript object you can easily access via req.body. 
+*/
 
+app.use(express.json());
 
 let teaData = [];
 let nextId = 1;
 
 // Adding the tea - post
 app.post("/teas", (req, res) => {
-  const {name, price} = req.body;
   // Anything comes under body (generally POST JSON) we use req.body to access it.
   // Destructuring it or it is equivalent to const name = req.body.name; or const price = req.body.price;
+  const {name, price} = req.body;
   const newTea = {id: nextId++, name, price};
   teaData.push(newTea);
   res.status(201).send(newTea);
@@ -64,7 +64,7 @@ app.get("/teas/:id", (req, res) => {
 
     // t.id === Number(req.params.id);
 
-    t.id === parseInt(req.params.id);
+    return t.id === parseInt(req.params.id);
 
     /* 
       Both would work for your current use case where you expect the id to be an integer from the URL.
@@ -84,7 +84,6 @@ app.get("/teas/:id", (req, res) => {
 });
 
 // Update the tea
-
 
 app.listen(port, () => {
   console.log(`Server is running at port ${port}...`);
