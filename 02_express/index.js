@@ -84,6 +84,33 @@ app.get("/teas/:id", (req, res) => {
 });
 
 // Update the tea
+app.put("/teas/:id", (req, res) => {
+  const teaId = parseInt(req.params.id);
+  const tea = teaData.find((t) => {
+    return t.id === teaId;
+  });
+  if (!tea) {
+    res.status(404).send("404 | Tea not found!");
+  } else {
+    const {name, price} = req.body;
+    tea.name = name;
+    tea.price = price;
+    res.status(200).send(tea);
+  }
+});
+
+// Delete Tea
+app.delete("/teas/:id", (req, res) => {
+  const index = teaData.findIndex((t) => {
+    return t.id === parseInt(req.params.id);
+  });
+  if (index === -1) {
+    req.status(404).send("Tea Not Found!");
+  } else {
+    teaData.splice(index, 1);
+    res.status(204).send();
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server is running at port ${port}...`);
