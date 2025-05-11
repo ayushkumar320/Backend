@@ -1,6 +1,9 @@
-import "dotenv/config";
 // This package is used when deployment (it required the .env file), because when we deploy, we can not use random ports like 3000, 2000 because of security issues, this package will look for a .env file in your directory, we define port in this env file or API_KEY
+import "dotenv/config";
+
 import express from "express";
+import logger from "./logger.js";
+import morgan from "morgan";
 
 const app = express();
 // const port = 3000; not used in deployment stage
@@ -42,6 +45,24 @@ app.route('/book')
 
 app.use(express.json());
 
+// Using the morgan
+const morganFormat = ":method :url :status :response-time ms";
+// Using the morgan middleware, after the express app is made
+app.use(
+  morgan(morganFormat, {
+    stream: {
+      write: (message) => {
+        const logObject = {
+          method: message.split(" ")[0],
+          url: message.split(" ")[1],
+          status: message.split(" ")[2],
+          responseTime: message.split(" ")[3],
+        };
+        logger.info(JSON.stringify(logObject));
+      },
+    },
+  })
+);
 let teaData = [];
 let nextId = 1;
 
