@@ -1,7 +1,10 @@
+import "dotenv/config";
+// This package is used when deployment (it required the .env file), because when we deploy, we can not use random ports like 3000, 2000 because of security issues, this package will look for a .env file in your directory, we define port in this env file or API_KEY
 import express from "express";
 
 const app = express();
-const port = 3000;
+// const port = 3000; not used in deployment stage
+const port = process.env.PORT || 3000;
 
 // app.get("/", (req, res) => {
 //   res.send("Hello from Ayush and his server");
