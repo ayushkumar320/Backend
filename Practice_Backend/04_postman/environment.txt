@@ -1,0 +1,8 @@
+When we deploy any web server, all the web requests come to port 80 and gets divided further to sub-ports and sub-rotes, and due to security issues there are some of the variables that are meant to be keep hidden like API-Keys, Database connection string (URI). For this we have a different solution and packages. One of the way is setting up environment variable using the "dotenv" package
+
+We write all the vulnarable varibales in a .env file, requiring the dotenv module in index.js by writing 
+  - require("dotenv").config() (CommonJS)
+  - import "dotenv/config (ES6)
+
+We can access those variabbles by 
+  - process.env.varibale_name, like process.env.PORT
